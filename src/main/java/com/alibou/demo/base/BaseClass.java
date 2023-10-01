@@ -17,5 +17,5 @@ public class BaseClass {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Integer identifier;
 }
