@@ -3,15 +3,9 @@ package com.alibou.demo.user;
 import com.alibou.demo.address.Address;
 import com.alibou.demo.base.BaseClass;
 import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,8 +25,8 @@ public class Users extends BaseClass {
     private String lastname;
     private String mail;
 
-
-    @Embedded
+    @OneToOne
+    @JoinColumn(name = "adr_id")
     private Address address;
 
 }
