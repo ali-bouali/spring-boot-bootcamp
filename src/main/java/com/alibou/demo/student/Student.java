@@ -12,6 +12,7 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -23,12 +24,12 @@ public class Student {
     @GeneratedValue
     private Integer id;
 
-    private String name;
+    private String firstname;
+    private String lastname;
+    private int age;
 
     @OneToOne(mappedBy = "student")
     private Address address;
-
-
 
     @ManyToMany
     @JoinTable(
