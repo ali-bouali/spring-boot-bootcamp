@@ -2,6 +2,7 @@ package com.alibou.demo.subject;
 
 import com.alibou.demo.chapter.Chapter;
 import com.alibou.demo.student.Student;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,6 +25,7 @@ public class Subject {
     private String name;
 
     @ManyToMany(mappedBy = "subjects")
+    @JsonBackReference
     private List<Student> students;
 
     @OneToMany(mappedBy = "subject")

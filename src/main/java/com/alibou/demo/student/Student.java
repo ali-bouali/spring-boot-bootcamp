@@ -2,6 +2,7 @@ package com.alibou.demo.student;
 
 import com.alibou.demo.address.Address;
 import com.alibou.demo.subject.Subject;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -37,5 +38,6 @@ public class Student {
             joinColumns = {@JoinColumn(name = "std_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "sub_id", referencedColumnName = "id")}
     )
+    @JsonManagedReference
     private List<Subject> subjects;
 }
