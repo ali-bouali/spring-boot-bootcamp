@@ -29,6 +29,7 @@ public class Student {
     private String lastname;
     private int age;
 
+
     @OneToOne(mappedBy = "student")
     private Address address;
 
@@ -38,6 +39,6 @@ public class Student {
             joinColumns = {@JoinColumn(name = "std_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "sub_id", referencedColumnName = "id")}
     )
-    @JsonManagedReference
+    // @JsonManagedReference
     private List<Subject> subjects;
 }
