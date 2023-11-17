@@ -1,5 +1,12 @@
 package com.alibou.demo.student;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +38,10 @@ public class StudentController {
 
     @PostMapping
     public void save(
-            @RequestBody StudentRequest student
+            @RequestBody @Valid StudentRequest student
     ) {
         service.save(student);
     }
-
-
 
     @GetMapping("/{student-id}")
     public StudentResponse findById(
@@ -49,7 +54,5 @@ public class StudentController {
     public List<StudentResponse> findAll() {
         return service.findAll();
     }
-
-
 
 }
