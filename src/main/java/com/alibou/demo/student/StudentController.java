@@ -2,6 +2,8 @@ package com.alibou.demo.student;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -37,22 +39,25 @@ public class StudentController {
     }
 
     @PostMapping
-    public void save(
+    public ResponseEntity<Void> save(
             @RequestBody @Valid StudentRequest student
     ) {
         service.save(student);
+        return ResponseEntity
+                .accepted()
+                .build();
     }
 
     @GetMapping("/{student-id}")
-    public StudentResponse findById(
+    public ResponseEntity<StudentResponse> findById(
             @PathVariable("student-id") Integer studentId
     ) {
-        return service.findById(studentId);
+        return ResponseEntity.ok(service.findById(studentId));
     }
 
     @GetMapping
-    public List<StudentResponse> findAll() {
-        return service.findAll();
+    public ResponseEntity<List<StudentResponse>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
 }
