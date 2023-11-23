@@ -1,5 +1,6 @@
 package com.alibou.demo.handlers;
 
+import com.alibou.demo.exception.StudentAssignmentException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,27 +10,47 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashSet;
+
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleException(MethodArgumentNotValidException exp) {
-        StringBuilder errors = new StringBuilder();
+    public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException exp) {
+        var validationErrors = new HashSet<String>();
         for(ObjectError error : exp.getBindingResult().getAllErrors()) {
             var fieldName = ((FieldError)error).getField();
             var errorMsg = error.getDefaultMessage();
-            errors.append(errors).append(fieldName).append(" - ").append(errorMsg).append("\n");
+            validationErrors.add(String.format("%s-%s", fieldName, errorMsg));
         }
+        var errorResponse = ErrorResponse.builder()
+                .errorMsg("Object not valid")
+                .validationErrors(validationErrors)
+                .build();
+
         return ResponseEntity
                 .badRequest()
-                .body(errors.toString());
+                .body(errorResponse);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> handleException(EntityNotFoundException exp) {
+    public ResponseEntity<ErrorResponse> handleException(EntityNotFoundException exp) {
+        var errorResponse = ErrorResponse.builder()
+                .errorMsg(exp.getMessage())
+                .build();
         return ResponseEntity
                 .status(HttpStatus.NOT_ACCEPTABLE)
-                .body(exp.getMessage());
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(StudentAssignmentException.class)
+    public ResponseEntity<ErrorResponse> handleException(StudentAssignmentException exp) {
+        var errorResponse = ErrorResponse.builder()
+                .errorMsg(exp.getMessage())
+                .build();
+        return ResponseEntity
+                .badRequest()
+                .body(errorResponse);
     }
 }
