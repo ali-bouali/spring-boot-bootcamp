@@ -1,13 +1,13 @@
 package com.alibou.demo.subject;
 
-import com.alibou.demo.subject.Subject;
-import com.alibou.demo.subject.SubjectRequest;
-import com.alibou.demo.subject.SubjectResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SubjectMapper {
     public Subject toSubject(SubjectRequest s) {
+        if (s == null) {
+            return Subject.builder().build();
+        }
         return Subject.builder()
                 .id(s.getId())
                 .name(s.getName())

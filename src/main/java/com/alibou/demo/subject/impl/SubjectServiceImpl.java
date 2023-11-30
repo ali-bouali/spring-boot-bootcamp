@@ -25,9 +25,9 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectMapper mapper;
 
     @Override
-    public void save(SubjectRequest s) {
-        Subject student = mapper.toSubject(s);
-        this.subjectRepository.save(student);
+    public void save(SubjectRequest request) {
+        Subject subject = mapper.toSubject(request);
+        this.subjectRepository.save(subject);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class SubjectServiceImpl implements SubjectService {
         // let's suppose:
         // a student can attend only 3 subjects
         var student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("no student found with ID:: " + studentId));
+                .orElseThrow(() -> new EntityNotFoundException("No student found with ID:: " + studentId));
 
         if (student.getSubjects().size() >= 3) {
             throw new StudentAssignmentException("Student cannot be assigned to more than 3 subjects");
@@ -46,7 +46,7 @@ public class SubjectServiceImpl implements SubjectService {
                 .map(Subject::getId)
                 .anyMatch(id -> Objects.equals(id, subjectId));
         if (alreadyAssigned) {
-            throw new StudentAssignmentException("Student is already assigne to this subject");
+            throw new StudentAssignmentException("Student is already assigned to this subject");
         }
 
         var subject = subjectRepository.findById(subjectId)
