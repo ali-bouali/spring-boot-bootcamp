@@ -1,12 +1,12 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/demo
-    username: username
-    password: password
+    username: alibou
+    password: alibou
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
