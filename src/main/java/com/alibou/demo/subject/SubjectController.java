@@ -22,13 +22,12 @@ public class SubjectController {
 
 
     @PostMapping
-    public ResponseEntity<Void> save(
+    public ResponseEntity<Integer> save(
             @RequestBody @Valid SubjectRequest subjectRequest
     ) {
-        service.save(subjectRequest);
         return ResponseEntity
                 .accepted()
-                .build();
+                .body(service.save(subjectRequest));
     }
 
     @PatchMapping("/{subject-id}/student/{student-id}")

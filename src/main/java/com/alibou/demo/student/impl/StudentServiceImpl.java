@@ -20,9 +20,9 @@ public class StudentServiceImpl implements StudentService {
     private final StudentMapper mapper;
 
     @Override
-    public void save(StudentRequest s) {
+    public Integer save(StudentRequest s) {
         Student student = mapper.toStudent(s);
-        this.studentRepository.save(student);
+        return this.studentRepository.save(student).getId();
     }
 
     @Override

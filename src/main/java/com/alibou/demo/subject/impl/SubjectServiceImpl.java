@@ -25,9 +25,9 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectMapper mapper;
 
     @Override
-    public void save(SubjectRequest request) {
+    public Integer save(SubjectRequest request) {
         Subject subject = mapper.toSubject(request);
-        this.subjectRepository.save(subject);
+        return this.subjectRepository.save(subject).getId();
     }
 
     @Override

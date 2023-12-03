@@ -39,13 +39,11 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(
+    public ResponseEntity<Integer> save(
             @RequestBody @Valid StudentRequest student
     ) {
-        service.save(student);
         return ResponseEntity
-                .accepted()
-                .build();
+                .accepted().body(service.save(student));
     }
 
     @GetMapping("/{student-id}")
