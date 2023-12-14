@@ -2,10 +2,10 @@ package com.alibou.demo.student;
 
 import com.alibou.demo.address.Address;
 import com.alibou.demo.subject.Subject;
+import com.alibou.demo.user.User;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -15,26 +15,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Student {
-
-    @Id
-    @GeneratedValue
-    private Integer id;
-
-    @Column(nullable = false)
-    private String firstname;
-    @Column(nullable = false)
-    private String lastname;
-    @Column(nullable = false)
+@SuperBuilder
+@Entity
+@DiscriminatorValue("STUDENT")
+public class Student extends User {
     private int age;
 
 
