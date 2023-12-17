@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthMapper {
 
-    public Student toStudent(AuthRequest s) {
+    public Student toStudent(RegisterRequest s) {
         Student student = new Student();
         student.setFirstname(s.getFirstname());
         student.setLastname(s.getLastname());

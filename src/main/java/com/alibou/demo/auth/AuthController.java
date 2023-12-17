@@ -3,14 +3,10 @@ package com.alibou.demo.auth;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -19,12 +15,20 @@ public class AuthController {
 
     private final AuthService service;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Void> register(
-            @RequestBody @Valid AuthRequest request
+            @RequestBody @Valid RegisterRequest request
     ) {
         service.register(request);
         return ResponseEntity.accepted().build();
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> authenticate(
+            @RequestBody @Valid AuthRequest request
+    ) {
+        return ResponseEntity.ok(service.authenticate(request));
     }
 
 

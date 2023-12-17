@@ -14,7 +14,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthRequest {
+public class RegisterRequest {
+
+    @NotNull(message = "Firstname must not be null")
+    private String firstname;
+    @NotNull(message = "Lastname must not be null")
+    private String lastname;
     @NotNull(message = "Email must not be null")
     @NotEmpty(message = "Email must not be null")
     @Email(message = "Email is not well formatter")

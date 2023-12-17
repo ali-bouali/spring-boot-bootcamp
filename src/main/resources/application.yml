@@ -11,3 +11,9 @@ spring:
       hibernate:
         format_sql: true
     show-sql: false
+
+app:
+  security:
+    jwt:
+      secret: eyJhbGciOiJIUzI1NiJ9ew0KICAic3ViIjogIjEyMzQ1Njc4OTAiLA0KICAibmFtZSI6ICJBbmlzaCBOYXRoIiwNCiAgImlhdCI6IDE1MTYyMzkwMjINCn04KhW1MhKdDX29MKJcYqoYn9eeE1HqeYzUzsdeZBmg
+      expiration: 86400000

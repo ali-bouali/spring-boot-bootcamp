@@ -13,8 +13,5 @@ import lombok.Setter;
 @Builder
 public class AuthResponse {
 
-    private String firstname;
-    private String lastname;
-    private int age;
-    private int nbrSubjects;
+    private String token;
 }
