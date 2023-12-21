@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/students")
+// @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
 public class StudentController {
 
     // POST https://some.url.com/students
@@ -47,6 +49,7 @@ public class StudentController {
     }
 
     @GetMapping("/{student-id}")
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")// ROLE_{ROLENAME} is forbidden
     public ResponseEntity<StudentResponse> findById(
             @PathVariable("student-id") Integer studentId
     ) {

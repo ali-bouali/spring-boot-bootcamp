@@ -2,6 +2,7 @@ package com.alibou.demo.auth;
 
 import com.alibou.demo.config.JwtService;
 import com.alibou.demo.student.StudentRepository;
+import com.alibou.demo.user.Role;
 import com.alibou.demo.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,7 @@ public class AuthService {
         var student = mapper.toStudent(request);
         var encryptedPassword = passwordEncoder.encode(student.getPassword());
         student.setPassword(encryptedPassword);
+        student.setRole(Role.ROLE_STUDENT);
         studentRepository.save(student);
     }
 
