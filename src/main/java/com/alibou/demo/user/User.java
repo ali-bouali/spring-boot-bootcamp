@@ -4,11 +4,11 @@ package com.alibou.demo.user;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static jakarta.persistence.DiscriminatorType.STRING;
 import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
@@ -47,12 +48,17 @@ public class User implements UserDetails {
     private String password;
     private String email;
     private boolean enabled;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    // @Enumerated(EnumType.STRING)
+    // private RoleEnum role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return roles
+                .stream()
+                .map(r -> new SimpleGrantedAuthority(r.getName().name()))
+                .collect(Collectors.toList());
     }
 
     @Override

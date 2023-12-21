@@ -42,8 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/auth/**")
                                 .permitAll()
-                            .requestMatchers(HttpMethod.DELETE, "**")
-                                .hasAnyRole("ADMIN")
+                            // .requestMatchers(HttpMethod.DELETE, "**")
+                                // .hasAnyRole("ADMIN")
                             .anyRequest()
                             .authenticated()
                 )

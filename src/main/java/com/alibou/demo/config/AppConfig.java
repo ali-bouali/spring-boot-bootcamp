@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class AppConfig {
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             @Override
+            @Transactional
             public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
                 return repository.findByEmail(email)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found with email:: " + email));

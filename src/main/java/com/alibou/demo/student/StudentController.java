@@ -41,6 +41,7 @@ public class StudentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('W')")
     public ResponseEntity<Integer> save(
             @RequestBody @Valid StudentRequest student
     ) {
