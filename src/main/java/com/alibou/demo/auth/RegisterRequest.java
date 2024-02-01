@@ -1,6 +1,7 @@
 package com.alibou.demo.auth;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,10 @@ import lombok.Setter;
 public class RegisterRequest {
 
     @NotNull(message = "Firstname must not be null")
+    @NotBlank(message = "Firstname must not be null")
     private String firstname;
     @NotNull(message = "Lastname must not be null")
+    @NotBlank(message = "Lastname must not be null")
     private String lastname;
     @NotNull(message = "Email must not be null")
     @NotEmpty(message = "Email must not be null")

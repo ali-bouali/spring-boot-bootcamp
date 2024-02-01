@@ -30,6 +30,7 @@ public class Subject {
     private Integer id;
     @Column(unique = true)
     private String name;
+    private String description;
 
     @ManyToMany(mappedBy = "subjects")
     // @JsonBackReference

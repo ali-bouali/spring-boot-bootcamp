@@ -11,12 +11,14 @@ public class SubjectMapper {
         return Subject.builder()
                 .id(s.getId())
                 .name(s.getName())
+                .description(s.getDescription())
                 .build();
     }
 
     public SubjectResponse toSubjectResponse(Subject subject) {
         return SubjectResponse.builder()
                 .name(subject.getName())
+                .description(subject.getDescription())
                 .build();
     }
 }

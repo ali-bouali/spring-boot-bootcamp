@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +56,12 @@ public class AuthService {
         );
         var userDetails = (User) authenticatedUser.getPrincipal();
         HashMap<String, Object> claims = new HashMap<>();
+        var authorities = userDetails.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
         claims.put("firstname", userDetails.getFirstname());
+        claims.put("authorities", authorities);
         var jwtToken = jwtService.generateToken(claims, userDetails);
         return AuthResponse.builder()
                 .token(jwtToken)

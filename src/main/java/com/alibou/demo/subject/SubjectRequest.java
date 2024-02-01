@@ -19,4 +19,7 @@ public class SubjectRequest {
     @NotNull(message = "Subject name is mandatory")
     @NotEmpty(message = "Subject name is mandatory")
     private String name;
+    @NotNull(message = "Description is mandatory")
+    @NotEmpty(message = "Description is mandatory")
+    private String description;
 }
