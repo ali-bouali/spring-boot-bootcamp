@@ -17,6 +17,7 @@ public class SubjectMapper {
 
     public SubjectResponse toSubjectResponse(Subject subject) {
         return SubjectResponse.builder()
+                .id(subject.getId())
                 .name(subject.getName())
                 .description(subject.getDescription())
                 .build();

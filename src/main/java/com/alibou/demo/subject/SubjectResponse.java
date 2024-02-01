@@ -13,6 +13,7 @@ import lombok.Setter;
 @Builder
 public class SubjectResponse {
 
+    private Integer id;
     private String name;
     private String description;
 }
