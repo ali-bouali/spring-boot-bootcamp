@@ -1,5 +1,6 @@
 package com.alibou.demo.subject.impl;
 
+import com.alibou.demo.common.PageResponse;
 import com.alibou.demo.exception.StudentAssignmentException;
 import com.alibou.demo.student.StudentRepository;
 import com.alibou.demo.subject.Subject;
@@ -10,11 +11,10 @@ import com.alibou.demo.subject.SubjectResponse;
 import com.alibou.demo.subject.SubjectService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -68,11 +68,17 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public List<SubjectResponse> findAll() {
-        return this.subjectRepository.findAll()
-                .stream()
-                .map(mapper::toSubjectResponse)
-                .collect(Collectors.toList());
+    public PageResponse<SubjectResponse> findAll(int page, int size) {
+        var pageResult = this.subjectRepository.findAll(PageRequest.of(page, size));
+        return PageResponse.<SubjectResponse>builder()
+                .content(
+                        pageResult.getContent()
+                                .stream()
+                                .map(mapper::toSubjectResponse)
+                                .toList()
+                )
+                .totalPages(pageResult.getTotalPages())
+                .build();
     }
 
     @Override
