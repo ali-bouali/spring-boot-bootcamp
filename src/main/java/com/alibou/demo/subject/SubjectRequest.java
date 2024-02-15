@@ -16,10 +16,10 @@ import lombok.Setter;
 public class SubjectRequest {
 
     private Integer id;
-    @NotNull(message = "Subject name is mandatory")
-    @NotEmpty(message = "Subject name is mandatory")
+    @NotNull(message = "100")
+    @NotEmpty(message = "100")
     private String name;
-    @NotNull(message = "Description is mandatory")
-    @NotEmpty(message = "Description is mandatory")
+    @NotNull(message = "101")
+    @NotEmpty(message = "101")
     private String description;
 }
